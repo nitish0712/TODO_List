@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <!-- font awesome stylesheet -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- css for home page -->
+        <link rel="stylesheet" href="/css/home.css" >
+        <!-- js file for another approach using ajax -->
+        <!-- <script type="text/javascript" src="/js/home.js"></script> -->
+    </head>
+
+
+    <body>
+        
+        <div id = "full">
+            <!-- page heading -->
+            <h1 id="page_heading">
+                <i class="fas fa-list"> My TODO List</i>
+            </h1>
+
+        
+        <!-- add list form -->
+        <form id="form" action="/create_list" method="POST">
+
+            <table class="center">
+                <tr>
+                    <td colspan="2">
+                        <div class="b01">
+                            <label for="work"><div>DESCRIPTION:</div></label>
+                            <input id="work" type="text" name="work" placeholder="What to do?" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="b02">
+                            <label for="org">CATEGORY:</label>
+                            <select name="org" id="org" required>
+                                <option value="" disabled selected>Choose a category</option>
+                                <option value="Home">Home</option>
+                                <option value="College">College</option>
+                                <option value="Company">Company</option>
+                                <option value="Coaching">Coaching</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                    <div class="b03">
+                        <label for="duedate">DUE DATE:</label>
+                        <input type="date" id="duedate" name="duedate" required>
+                    </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- add task button -->
+            <button id="button1" type="submit"><i class="fa fa-plus" aria-hidden="true"> Add Task</i></button>
+        </form>
+
+        <!-- main content showing and deleting -->
+        <div id="content">
+            <form action="/delete-tasks" method="POST">
+                <% for(let i of todo_list){ %>
+                    <div class="list">
+                        <input type="checkbox"  name="delete" value="<%=i._id%>" >
+                        <label for="item">
+                            <div class="details">
+                                <div class="p01"> <%= i.work %></div>
+                                <div class="p02">
+                                    <div class="colorbox"> <%= i.org %></div>
+                                </div>
+                            </div>
+                            <div class="c02">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <%= i.duedate %>
+                            </div>
+                        </label>
+                        <br>
+                    </div>
+                <%} %>
+                <div>
+                <!-- delete button -->
+                <button type="submit"  class="delete-button" id="delete"><i class="fa fa-window-close" aria-hidden="true"> Delete Tasks</i></button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
